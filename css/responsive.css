@@ -1,0 +1,58 @@
+/* 반응형 스타일 */
+
+/* 태블릿 사이즈 */
+@media (max-width: 768px) {
+    .sticky-header nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .search-container input[type="text"] {
+        min-width: 200px;
+    }
+
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr; /* 1열로 변경 */
+    }
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    section {
+        padding: 1.5rem;
+    }
+
+    .logo a {
+        font-size: 1.2rem;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .search-container input[type="text"] {
+        width: 100%;
+    }
+
+    .product-list {
+        grid-template-columns: 1fr; /* 1열로 고정 */
+    }
+
+    .detail-box {
+        padding: 1rem;
+    }
+}
