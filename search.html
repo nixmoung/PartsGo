@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>상품 목록 - PartsGo</title>
+    <title>검색 결과 - PartsGo</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         .sort-controls {
@@ -43,23 +43,10 @@
     </section>
 
     <div class="container main-content">
-        <aside class="category-sidebar">
-            <h3>카테고리</h3>
-            <ul class="category-list">
-                <li><a href="sub.html?part=cpu">CPU</a></li>
-                <li><a href="sub.html?part=motherboard">메인보드</a></li>
-                <li><a href="sub.html?part=ram">메모리(RAM)</a></li>
-                <li><a href="sub.html?part=gpu">그래픽카드</a></li>
-                <li><a href="sub.html?part=ssd">SSD</a></li>
-                <li><a href="sub.html?part=power">파워서플라이</a></li>
-                <li><a href="sub.html?part=case">케이스</a></li>
-            </ul>
-        </aside>
-
         <main class="product-grid">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2 id="category-title">상품 목록</h2>
-                <div class="sort-controls">
+                <h2 id="search-result-title"></h2>
+                <div class="sort-controls" id="sort-controls-container" style="display: none;">
                     <label for="sort-select">정렬:</label>
                     <select id="sort-select">
                         <option value="default">기본</option>
@@ -70,7 +57,7 @@
                 </div>
             </div>
             <div id="product-list-container" class="product-grid-container">
-                <!-- 상품 목록이 여기에 동적으로 생성됩니다. -->
+                <!-- 검색 결과가 여기에 동적으로 생성됩니다. -->
             </div>
         </main>
     </div>
@@ -85,17 +72,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const partCategory = params.get('part');
+            const query = params.get('query');
             
-            const titleElement = document.getElementById('category-title');
+            const titleElement = document.getElementById('search-result-title');
             const listContainer = document.getElementById('product-list-container');
+            const searchInput = document.querySelector('input[name="query"]');
             const sortSelect = document.getElementById('sort-select');
+            const sortControlsContainer = document.getElementById('sort-controls-container');
 
             let currentProducts = [];
 
-            // 상품 목록을 화면에 렌더링하는 함수
             const renderProducts = (products) => {
-                listContainer.innerHTML = ''; // 기존 목록 초기화
+                listContainer.innerHTML = '';
                 let productsHTML = '';
                 products.forEach(item => {
                     productsHTML += `
@@ -111,10 +99,9 @@
                 listContainer.innerHTML = productsHTML;
             };
 
-            // 정렬 기능 처리 함수
             const sortProducts = () => {
                 const sortBy = sortSelect.value;
-                let sortedProducts = [...currentProducts]; // 원본 배열 수정을 피하기 위해 복사
+                let sortedProducts = [...currentProducts];
 
                 if (sortBy === 'price-asc') {
                     sortedProducts.sort((a, b) => a.price - b.price);
@@ -123,22 +110,34 @@
                 } else if (sortBy === 'date-desc') {
                     sortedProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
                 }
-                // 'default'는 원래 순서대로 두므로 별도 처리 없음
 
                 renderProducts(sortedProducts);
             };
 
-            if (partCategory && partsData[partCategory]) {
-                const category = partsData[partCategory];
-                titleElement.textContent = `${category.name} 상품 목록`;
-                currentProducts = category.items;
-                renderProducts(currentProducts); // 초기 렌더링
+            if (query) {
+                const decodedQuery = decodeURIComponent(query).toLowerCase();
+                searchInput.value = decodeURIComponent(query);
+                document.title = `"${decodeURIComponent(query)}" 검색 결과 - PartsGo`;
+                
+                for (const category in partsData) {
+                    partsData[category].items.forEach(item => {
+                        if (item.name.toLowerCase().includes(decodedQuery)) {
+                            currentProducts.push(item);
+                        }
+                    });
+                }
 
-                sortSelect.addEventListener('change', sortProducts);
+                if (currentProducts.length > 0) {
+                    titleElement.textContent = `"${decodeURIComponent(query)}"에 대한 검색 결과`;
+                    sortControlsContainer.style.display = 'block'; // 검색 결과 있을 때만 정렬 보이기
+                    renderProducts(currentProducts);
+                    sortSelect.addEventListener('change', sortProducts);
+                } else {
+                    titleElement.textContent = `"${decodeURIComponent(query)}"에 대한 검색 결과가 없습니다.`;
+                }
+
             } else {
-                titleElement.textContent = '선택된 카테고리가 없습니다.';
-                listContainer.innerHTML = '<p>왼쪽 메뉴에서 카테고리를 선택해주세요.</p>';
-                sortSelect.style.display = 'none'; // 카테고리 없으면 정렬 메뉴 숨김
+                titleElement.textContent = '검색어를 입력해주세요.';
             }
         });
     </script>

@@ -3,70 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartsGo - 컴퓨터 부품 구매 결정 도우미</title>
+    <title>PartsGo - 컴퓨터 부품의 모든 것</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <header class="sticky-header">
-        <nav>
-            <div class="logo">
-                <a href="index.html">PartsGo</a>
-            </div>
-            <div class="search-container">
-                <input type="text" placeholder="부품 검색...">
-                <button>검색</button>
-            </div>
-        </nav>
+
+    <header class="header">
+        <div class="container">
+            <a href="/" class="logo">PartsGo</a>
+            <nav class="main-nav">
+                <a href="#">로그인</a>
+                <a href="#">회원가입</a>
+                <a href="#">고객센터</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section id="top10">
-            <h2>Top 10 인기 상품</h2>
-            <div class="product-list">
-                <!-- Placeholder Items -->
-                <div class="product-item"><a href="sub.html">인기 상품 1</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 2</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 3</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 4</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 5</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 6</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 7</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 8</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 9</a></div>
-                <div class="product-item"><a href="sub.html">인기 상품 10</a></div>
-            </div>
-        </section>
+    <section class="search-section">
+        <form action="search.html" method="get" style="display: flex; justify-content: center;">
+            <input type="text" name="query" class="search-bar" placeholder="찾고 계신 부품을 검색해보세요.">
+            <button type="submit" class="search-button">검색</button>
+        </form>
+    </section>
 
-        <section id="cpu-list">
-            <h2>CPU Top 5</h2>
-            <div class="product-list">
-                <!-- Placeholder Items -->
-                <div class="product-item"><a href="sub.html">CPU 모델 1</a></div>
-                <div class="product-item"><a href="sub.html">CPU 모델 2</a></div>
-                <div class="product-item"><a href="sub.html">CPU 모델 3</a></div>
-                <div class="product-item"><a href="sub.html">CPU 모델 4</a></div>
-                <div class="product-item"><a href="sub.html">CPU 모델 5</a></div>
-            </div>
-        </section>
+    <div class="container main-content">
+        <aside class="category-sidebar">
+            <h3>카테고리</h3>
+            <ul class="category-list">
+                <li><a href="sub.html?part=cpu">CPU</a></li>
+                <li><a href="sub.html?part=motherboard">메인보드</a></li>
+                <li><a href="sub.html?part=ram">메모리(RAM)</a></li>
+                <li><a href="sub.html?part=gpu">그래픽카드</a></li>
+                <li><a href="sub.html?part=ssd">SSD</a></li>
+                <li><a href="sub.html?part=power">파워서플라이</a></li>
+                <li><a href="sub.html?part=case">케이스</a></li>
+            </ul>
+        </aside>
 
-        <section id="gpu-list">
-            <h2>그래픽카드 Top 5</h2>
-            <div class="product-list">
-                <!-- Placeholder Items -->
-                <div class="product-item"><a href="sub.html">GPU 모델 1</a></div>
-                <div class="product-item"><a href="sub.html">GPU 모델 2</a></div>
-                <div class="product-item"><a href="sub.html">GPU 모델 3</a></div>
-                <div class="product-item"><a href="sub.html">GPU 모델 4</a></div>
-                <div class="product-item"><a href="sub.html">GPU 모델 5</a></div>
+        <main class="product-grid">
+            <h2>추천 상품</h2>
+            <div class="product-grid-container">
+                <!-- Product Item 1 -->
+                <a href="detail.html?id=cpu-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=CPU" alt="CPU">
+                        <h4>인텔 코어 i9-13900K</h4>
+                        <p class="price">750,000원</p>
+                    </div>
+                </a>
+                <!-- Product Item 2 -->
+                <a href="detail.html?id=gpu-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=GPU" alt="GPU">
+                        <h4>NVIDIA GeForce RTX 4090</h4>
+                        <p class="price">2,500,000원</p>
+                    </div>
+                </a>
+                <!-- Product Item 3 -->
+                <a href="detail.html?id=ram-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=RAM" alt="RAM">
+                        <h4>삼성전자 DDR5 16GB</h4>
+                        <p class="price">65,000원</p>
+                    </div>
+                </a>
+                <!-- Product Item 4 -->
+                <a href="detail.html?id=ssd-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=SSD" alt="SSD">
+                        <h4>SK하이닉스 Platinum P41 1TB</h4>
+                        <p class="price">150,000원</p>
+                    </div>
+                </a>
+                 <!-- Product Item 5 -->
+                 <a href="detail.html?id=mb-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=Motherboard" alt="Motherboard">
+                        <h4>ASUS ROG STRIX Z790-E</h4>
+                        <p class="price">600,000원</p>
+                    </div>
+                </a>
+                <!-- Product Item 6 -->
+                <a href="detail.html?id=power-0" class="product-item-link">
+                    <div class="product-item">
+                        <img src="https://via.placeholder.com/220x220.png?text=Power+Supply" alt="Power Supply">
+                        <h4>시소닉 FOCUS GOLD GX-1000</h4>
+                        <p class="price">250,000원</p>
+                    </div>
+                </a>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
-    <footer>
-        <p>&copy; 2025 PartsGo. 모든 권리 보유.</p>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 PartsGo. All Rights Reserved.</p>
+        </div>
     </footer>
 
-    <script src="js/main.js"></script>
 </body>
 </html>
